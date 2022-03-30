@@ -1,6 +1,8 @@
 {
   "name": "flying-yabbits",
   "version": "0.1.0",
+  "author": "Yannis Teissier",
+  "description": "A simple NFT Game",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
