@@ -22,6 +22,7 @@ To play, you simply need to select your yabbit and click on play to play.
  - [ ] Optimizations
  - [ ] UI
  - [ ] Fully support mobile
- - [ ] Fully support Yabbits Loading
+ - [X] Fully support Yabbits Loading
+ - [ ] Improve IPFS
  - [ ] Adding abilities to Yabbits
  - [ ] ...
