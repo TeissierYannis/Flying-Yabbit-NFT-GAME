@@ -121,3 +121,38 @@
         transform: scaleY(1);
     }
 }
+
+.progress-container {
+    position: relative;
+    /* center */
+    margin: auto;
+    width: 100%;
+    height: 70vh;
+}
+
+#progress {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 10px;
+    background: #000;
+    border-radius: 5px;
+    overflow: hidden;
+    color: #2e2e2e;
+}
+progress::-moz-progress-bar {
+    background: #ea8478;
+}
+
+progress::-webkit-progress-value
+{
+    background-color: #ea8478;
+}
+
+.progress-value {
+    position: absolute;
+    top: 60%;
+    left: 48.5%;
+}

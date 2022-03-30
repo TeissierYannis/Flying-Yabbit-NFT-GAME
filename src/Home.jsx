@@ -10,26 +10,35 @@ import './style/Galery.css'
 import Game from "./components/Game";
 import Navbar from "./components/Navbar";
 import Gallery from "./components/Gallery";
+import PolygonAPI from "./plugins/polygonAPI";
 
-const AnimatedLoader = () => {
+const AnimatedLoader = ({value, maxValue}) => {
+    let percent = (value / maxValue * 100).toFixed(2);
 
     return (
-        <div className="wrapper">
-            <div id="dot1"></div>
-            <div id="dot2"></div>
-            <div id="dot3"></div>
-            <div id="dot4"></div>
-            <div id="dot5"></div>
-            <div id="dot6"></div>
-            <div id="dot7"></div>
-            <div id="dot8"></div>
-            <div id="dot9"></div>
-            <div id="dot10"></div>
-            <div id="base1"></div>
-            <div id="base2"></div>
-            <div id="base3"></div>
-            <div id="base4"></div>
-            <div id="base5"></div>
+        <div className="progress-container">
+            <div className="wrapper">
+                <div id="dot1"></div>
+                <div id="dot2"></div>
+                <div id="dot3"></div>
+                <div id="dot4"></div>
+                <div id="dot5"></div>
+                <div id="dot6"></div>
+                <div id="dot7"></div>
+                <div id="dot8"></div>
+                <div id="dot9"></div>
+                <div id="dot10"></div>
+                <div id="base1"></div>
+                <div id="base2"></div>
+                <div id="base3"></div>
+                <div id="base4"></div>
+                <div id="base5"></div>
+            </div>
+            <progress id="progress" value={value} max={maxValue}>
+            </progress>
+            <p className="progress-value">
+                {percent}%
+            </p>
         </div>
     )
 }
@@ -43,8 +52,28 @@ const Home = () => {
     web3Class.getUserAddress().then(console.log);
     web3Class.getBalance().then(console.log);
 
+    const polygonAPI = new PolygonAPI('0xD795Bb0E45299f8e685B66e903e9c99C271576FF');
+
+    const [loading, setLoading] = React.useState(0);
+    const [maxLoading, setMaxLoading] = React.useState(0);
+
     React.useEffect(() => {
-        web3Class.listNFTsOwnedByUser(1, 9).then(setNft);
+
+        let ntfs = []
+        polygonAPI.listTokenOf(web3Class.getUserAddress()).then(res => {
+            if (res.length > 10) {
+                // slice
+                res = res.slice(0, 10);
+            }
+
+            res.forEach((tokenId, index) => {
+                setMaxLoading(res.length + 1);
+                ntfs.push(web3Class.getNFTURI(tokenId))
+                setLoading(index + 1);
+            });
+
+            setNft(ntfs);
+        });
     }, []);
 
     const [playing, setPlaying] = React.useState(false);
@@ -66,7 +95,7 @@ const Home = () => {
                     {nft ? (
                         <Gallery nft={nft} useToPlay={useToPlay}/>
                     ) : (
-                        <AnimatedLoader/>
+                        <AnimatedLoader value={loading} maxValue={maxLoading}/>
                     )}
                 </section>
             </div>}

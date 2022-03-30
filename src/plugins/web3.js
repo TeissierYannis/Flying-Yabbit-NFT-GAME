@@ -67,38 +67,7 @@ class web3 {
         return this.#balance;
     }
 
-    /**
-     * List all the id of the token that the user has
-     * @returns {Promise<*[]>}
-     */
-    async listNFTsOwnedByUser(min = 1, max = 10) {
-
-        let nfts = [];
-
-        await this.getUserAddress();
-        await this.getBalance();
-        await this.getTotalSupply();
-
-        for (let tokenID = 1; tokenID < this.#totalSupply + 1; tokenID++) {
-
-            let tokenOwner = '0x0'
-
-            if (nfts.length === this.#balance || (tokenID > 1 && tokenID > this.#totalSupply || tokenID > max)) break;
-            try {
-                tokenOwner = await this.#contract.ownerOf(tokenID);
-            } catch (e) {
-                continue;
-            }
-            if (tokenOwner.toLowerCase() === this.#userAddress.toLowerCase()) {
-                console.log(`Token ID: ${tokenID} owned by ${this.#userAddress}`);
-                nfts.push(await this.getNFTURI(tokenID));
-            }
-        }
-
-        return nfts;
-    }
-
-    async getNFTURI(tokenID) {
+    getNFTURI(tokenID) {
 
         const imageURI = `https://gateway.pinata.cloud/ipfs/${this.#contentID}/${tokenID}.png`;
 

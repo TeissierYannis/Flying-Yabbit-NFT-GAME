@@ -37,3 +37,4 @@ Desktop.ini
 .idea
 
 src/artifacts/contracts/YabbitsOriginal.sol/YabbitsOriginalNFT.sol
+.env

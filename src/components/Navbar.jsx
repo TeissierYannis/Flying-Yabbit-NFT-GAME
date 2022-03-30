@@ -6,7 +6,7 @@ const Navbar = () => {
             <div className="container">
                 <div className="grid">
                     <div className="column-xs-12 column-md-10">
-                        <p id="highlight">Flying Yabbits</p>
+                        <p id="highlight">Flying Yabbits (Beta)</p>
                     </div>
                     <div className="column-xs-12 column-md-2">
                         <ul>
